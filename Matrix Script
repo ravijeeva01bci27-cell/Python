@@ -1,0 +1,46 @@
+import sys
+import re
+
+def decode_matrix():
+    # Read first line to get dimensions N and M
+    line = sys.stdin.readline()
+    if not line:
+        return
+    
+    n, m = map(int, line.split())
+
+    # Read the matrix rows
+    matrix = []
+    for _ in range(n):
+        matrix.append(sys.stdin.readline().replace('\n', '').replace('\r', ''))
+
+    # Step 1: Read the script column-wise
+    # We build the decoded string by iterating through each column (j)
+    # and then each row (i)
+    decoded_string = ""
+    for j in range(m):
+        for i in range(n):
+            # Check if current row has a character at this column index
+            if j < len(matrix[i]):
+                decoded_string += matrix[i][j]
+            else:
+                # If row is shorter than M, treat as a space
+                decoded_string += " "
+
+    # Step 2: Use regex to replace symbols/spaces between alphanumeric characters
+    # Neo's logic: 
+    # Replace non-alphanumeric sequences only if they are sandwiched 
+    # between alphanumeric characters (\w).
+    # (?<=\w) : Lookbehind to ensure there is a word character before
+    # [^\w]+  : Match one or more characters that are NOT alphanumeric
+    # (?=\w)  : Lookahead to ensure there is a word character after
+    pattern = r'(?<=\w)[^\w]+(?=\w)'
+    
+    # Replace the identified noise with a single space
+    result = re.sub(pattern, ' ', decoded_string)
+
+    # Output the final decoded script
+    print(result)
+
+if __name__ == "__main__":
+    decode_matrix()
