@@ -1,0 +1,28 @@
+import sys
+
+def sort_spreadsheet():
+    # Read N (athletes) and M (attributes)
+    input_data = sys.stdin.read().splitlines()
+    if not input_data:
+        return
+    
+    n, m = map(int, input_data[0].split())
+    
+    # Store rows as lists of integers
+    rows = []
+    for i in range(1, n + 1):
+        rows.append(list(map(int, input_data[i].split())))
+        
+    # Read the attribute index K to sort by
+    k = int(input_data[n + 1])
+    
+    # Sort the list of rows based on the element at index K
+    # itemgetter(k) or a lambda can be used here
+    rows.sort(key=lambda x: x[k])
+    
+    # Print the sorted rows
+    for row in rows:
+        print(*(row))
+
+if __name__ == "__main__":
+    sort_spreadsheet()
