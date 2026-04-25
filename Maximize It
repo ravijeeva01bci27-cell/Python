@@ -1,0 +1,14 @@
+from itertools import product
+
+# Read K and M
+k, m = map(int, input().split())
+
+# Read each list (skipping the first integer which denotes the count Ni)
+lists = [list(map(int, input().split()))[1:] for _ in range(k)]
+
+# Use itertools.product to find all combinations of picking one element from each list
+# Calculate (x1^2 + x2^2 + ... + xk^2) % M for each combination
+results = (sum(x**2 for x in combo) % m for combo in product(*lists))
+
+# Print the maximum possible result
+print(max(results))
