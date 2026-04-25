@@ -1,0 +1,50 @@
+import sys
+
+class EvenStream(object):
+    def __init__(self):
+        self.current = 0
+
+    def get_next(self):
+        to_return = self.current
+        self.current += 2
+        return to_return
+
+class OddStream(object):
+    def __init__(self):
+        self.current = 1
+
+    def get_next(self):
+        to_return = self.current
+        self.current += 2
+        return to_return
+
+def print_from_stream(n, stream=None):
+    """
+    FIX: By setting stream=None, we ensure a new EvenStream 
+    is created every time the function is called without an argument.
+    """
+    if stream is None:
+        stream = EvenStream()
+    for _ in range(n):
+        print(stream.get_next())
+
+def main():
+    # Reading input using sys.stdin for efficiency
+    input_data = sys.stdin.read().split()
+    if not input_data:
+        return
+    
+    q = int(input_data[0])
+    idx = 1
+    for _ in range(q):
+        stream_name = input_data[idx]
+        n = int(input_data[idx + 1])
+        idx += 2
+        
+        if stream_name == "even":
+            print_from_stream(n)
+        else:
+            print_from_stream(n, OddStream())
+
+if __name__ == "__main__":
+    main()
