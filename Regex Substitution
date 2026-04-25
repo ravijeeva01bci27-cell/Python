@@ -1,0 +1,28 @@
+import re
+import sys
+
+def convert_symbols():
+    # Read the number of lines
+    n = int(sys.stdin.readline())
+    
+    # Process each line
+    for _ in range(n):
+        line = sys.stdin.readline().rstrip('\n')
+        
+        # Pattern logic:
+        # (?<= ) matches a space before the symbol (lookbehind)
+        # && or \|\| matches the target symbols
+        # (?= ) matches a space after the symbol (lookahead)
+        
+        # We run it twice to handle cases like "&& &&" where 
+        # the middle space is shared between two matches.
+        line = re.sub(r'(?<= )&&(?= )', 'and', line)
+        line = re.sub(r'(?<= )&&(?= )', 'and', line)
+        
+        line = re.sub(r'(?<= )\|\|(?= )', 'or', line)
+        line = re.sub(r'(?<= )\|\|(?= )', 'or', line)
+        
+        print(line)
+
+if __name__ == "__main__":
+    convert_symbols()
