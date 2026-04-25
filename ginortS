@@ -1,0 +1,25 @@
+def custom_sort(char):
+    # Rule 1: Lowercase letters (Lowest rank)
+    if char.islower():
+        return (0, char)
+    
+    # Rule 2: Uppercase letters
+    elif char.isupper():
+        return (1, char)
+    
+    # Rule 3: Odd digits
+    elif char.isdigit():
+        if int(char) % 2 != 0:
+            return (2, char)
+        # Rule 4: Even digits (Highest rank)
+        else:
+            return (3, char)
+
+# Read the input string
+s = input().strip()
+
+# Sort using the custom key
+sorted_chars = sorted(s, key=custom_sort)
+
+# Join and print the result
+print("".join(sorted_chars))
