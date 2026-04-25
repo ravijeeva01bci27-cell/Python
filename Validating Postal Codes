@@ -1,0 +1,19 @@
+import re
+
+# regex_integer_in_range:
+# ^[1-9] ensures the first digit is 1-9 (starts at 100000)
+# \d{5}$ ensures exactly 5 more digits follow (total 6 digits)
+regex_integer_in_range = r"^[1-9]\d{5}$"
+
+# regex_alternating_repetitive_digit_pair:
+# (\d) captures a digit
+# (?=\d\1) lookahead checks if the same digit (\1) appears after exactly one other digit
+# This lookahead allows finding overlapping pairs (e.g., 5252 has two: 5-2-5 and 2-5-2)
+regex_alternating_repetitive_digit_pair = r"(\d)(?=\d\1)"
+
+
+# The following is the standard HackerRank stub to test your regex
+P = input()
+
+print (bool(re.match(regex_integer_in_range, P)) 
+and len(re.findall(regex_alternating_repetitive_digit_pair, P)) < 2)
