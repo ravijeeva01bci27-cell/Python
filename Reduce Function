@@ -1,0 +1,19 @@
+from fractions import Fraction
+from functools import reduce
+
+def product(fracs):
+    # reduce(function, sequence)
+    # The lambda function multiplies two Fraction objects (x and y)
+    t = reduce(lambda x, y: x * y, fracs)
+    return t.numerator, t.denominator
+
+if __name__ == '__main__':
+    fracs = []
+    # Read the number of rational numbers
+    for _ in range(int(input())):
+        # Create a Fraction object for each pair of inputs
+        fracs.append(Fraction(*map(int, input().split())))
+    
+    # Get the simplified numerator and denominator
+    result = product(fracs)
+    print(*result)
